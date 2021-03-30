@@ -6,6 +6,7 @@ const typeDefs = `
         me: User!
         post: Post!
         greeting(name: String): String!
+        grades: [Int]!
     }
 
     type User {
@@ -47,6 +48,9 @@ const resolvers = {
         return `Hello, ${args.name}`;
       }
       return 'Hello!';
+    },
+    grades(parent, args, ctx, info) {
+      return [99, 90, 92];
     },
   },
 };
