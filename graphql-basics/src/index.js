@@ -20,11 +20,34 @@ const users = [
   },
 ];
 
+// Demo post data
+const posts = [
+  {
+    id: 'afdsf',
+    title: 'fjiaosjfo',
+    body: 'sifasodfsaodfijsodjfs',
+    published: true,
+  },
+  {
+    id: 'isofjso',
+    title: 'jsiofjsofjso',
+    body: 'sjosjfisodjfsjlfijsodjfs',
+    published: false,
+  },
+  {
+    id: 'iiiosd',
+    title: 'jslfsfs.fso',
+    body: 'sifasodijsfosjfosfjmlsfijsodjfs',
+    published: true,
+  },
+];
+
 // Type definition (schema)
 const typeDefs = `
     type Query {
         users(query: String): [User!]!
         me: User!
+        posts(query: String): [Post!]!
         post: Post!
     }
 
@@ -59,6 +82,16 @@ const resolvers = {
         email: 'huzhx@example.com',
         age: 28,
       };
+    },
+    posts(parent, args, ctx, info) {
+      if (args.query) {
+        return posts.filter((post) => {
+          const titleMatched = post.title.toLowerCase().includes(args.query.toLowerCase());
+          const bodyMatched = post.body.toLowerCase().includes(args.query.toLowerCase());
+          return titleMatched || bodyMatched;
+        });
+      }
+      return posts;
     },
     post() {
       return {
