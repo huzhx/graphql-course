@@ -5,6 +5,7 @@ const typeDefs = `
     type Query {
         me: User!
         post: Post!
+        greeting(name: String): String!
     }
 
     type User {
@@ -40,6 +41,12 @@ const resolvers = {
         body: 'this is a test',
         published: true,
       };
+    },
+    greeting(parent, args, ctx, info) {
+      if (args.name) {
+        return `Hello, ${args.name}`;
+      }
+      return 'Hello!';
     },
   },
 };
