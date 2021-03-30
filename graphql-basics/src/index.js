@@ -5,6 +5,10 @@ const typeDefs = `
     type Query {
         hello: String!
         name: String!
+        id: ID!
+        age: Int!
+        employed: Boolean!
+        gpa: Float
     }
 `;
 
@@ -16,6 +20,18 @@ const resolvers = {
     },
     name() {
       return 'huzhx';
+    },
+    id() {
+      return 'abc123';
+    },
+    age() {
+      return 23;
+    },
+    employed() {
+      return true;
+    },
+    gpa() {
+      return null;
     },
   },
 };
