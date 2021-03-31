@@ -51,21 +51,25 @@ const comments = [
     id: '83',
     text: '3829r2793r',
     author: '1',
+    post: 'afdsf',
   },
   {
     id: '39203',
     text: 'sfjasoejovjeo',
     author: '2',
+    post: 'isofjso',
   },
   {
     id: '3939393',
     text: 'sfiieo',
     author: '1',
+    post: 'iiiosd',
   },
   {
     id: '282803',
     text: 'sfjasoejoooeo',
     author: '3',
+    post: 'afdsf',
   },
 ];
 
@@ -100,6 +104,7 @@ const typeDefs = `
         id: ID!
         text: String!
         author: User!
+        post: Post!
     }
 `;
 
@@ -160,6 +165,10 @@ const resolvers = {
     author(parent, args, ctx, info) {
       const authorId = parent.author;
       return users.find((user) => user.id === authorId);
+    },
+    post(parent, args, ctx, info) {
+      const postId = parent.post;
+      return posts.find((post) => post.id === postId);
     },
   },
 };
