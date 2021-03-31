@@ -45,6 +45,26 @@ const posts = [
   },
 ];
 
+// Demo comment data
+const comments = [
+  {
+    id: '83',
+    text: '3829r2793r',
+  },
+  {
+    id: '39203',
+    text: 'sfjasoejovjeo',
+  },
+  {
+    id: '3939393',
+    text: 'sfiieo',
+  },
+  {
+    id: '282803',
+    text: 'sfjasoejoooeo',
+  },
+];
+
 // Type definition (schema)
 const typeDefs = `
     type Query {
@@ -52,6 +72,7 @@ const typeDefs = `
         me: User!
         posts(query: String): [Post!]!
         post: Post!
+        comments: [Comment!]!
     }
 
     type User {
@@ -68,6 +89,11 @@ const typeDefs = `
         body: String!
         published: Boolean!
         author: User!
+    }
+
+    type Comment {
+        id: ID!
+        text: String!
     }
 `;
 
@@ -105,6 +131,9 @@ const resolvers = {
         body: 'this is a test',
         published: true,
       };
+    },
+    comments(parent, args, ctx, info) {
+      return comments;
     },
   },
   Post: {
