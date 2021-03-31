@@ -98,6 +98,7 @@ const typeDefs = `
         body: String!
         published: Boolean!
         author: User!
+        comments: [Comment!]!
     }
 
     type Comment {
@@ -151,6 +152,10 @@ const resolvers = {
     author(parent, args, ctx, info) {
       const authorId = parent.author;
       return users.find((user) => user.id === authorId);
+    },
+    comments(parent, args, ctx, info) {
+      const postId = parent.id;
+      return comments.filter((comment) => comment.post === postId);
     },
   },
   User: {
