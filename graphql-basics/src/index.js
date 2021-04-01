@@ -22,7 +22,7 @@ const users = [
 ];
 
 // Demo post data
-const posts = [
+let posts = [
   {
     id: 'afdsf',
     title: 'fjiaosjfo',
@@ -47,7 +47,7 @@ const posts = [
 ];
 
 // Demo comment data
-const comments = [
+let comments = [
   {
     id: '83',
     text: '3829r2793r',
@@ -86,6 +86,7 @@ const typeDefs = `
 
     type Mutation {
       createUser(data: CreateUserInput!): User!
+      deleteUser(id: ID!): User!
       createPost(data: CreatePostInput!): Post!
       createComment(data: createCommentInput!): Comment!
     }
@@ -185,6 +186,25 @@ const resolvers = {
         ...args.data,
       };
       users.push(user);
+      return user;
+    },
+    deleteUser(parent, args, ctx, info) {
+      const userIndex = users.findIndex((user) => user.id === args.id);
+      if (userIndex === -1) {
+        throw new Error('User not found');
+      }
+      // detele the user
+      const user = users.splice(userIndex, 1)[0];
+      // delete the posts of the user
+      posts = posts.filter((post) => {
+        const match = post.author === user.id;
+        if (match) {
+          comments = comments.filter((comment) => comment.post !== post.id);
+        }
+        return !match;
+      });
+      // delete the comments of the user
+      comments = comments.filter((comment) => comment.author !== user.id);
       return user;
     },
     createPost(parent, args, ctx, info) {
